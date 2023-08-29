@@ -1,10 +1,12 @@
 import { ShoppingCart } from "@phosphor-icons/react";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Header = () => {
 
     const [cartVisible, setCartVisible] = useState<boolean>(false);
+    const location = useLocation();
     
     return(
         <>
@@ -13,13 +15,22 @@ const Header = () => {
                     <HeaderLogo>LOGO</HeaderLogo>
                     <HeaderMenu>
                         <li>
-                            <a href="/">Início</a>
+                            <a
+                                href="/"
+                                className={location.pathname === '/' ? "active" : ""}
+                            >Início</a>
                         </li>
                         <li>
-                            <a href="/cardapio">Cardápio</a>
+                            <a
+                                href="/cardapio"
+                                className={location.pathname === '/cardapio' ? "active" : ""}
+                            >Cardápio</a>
                         </li>
                         <li>
-                            <a href="/promocoes">Promoções</a>
+                            <a
+                                href="/promocoes"
+                                className={location.pathname === '/promocoes' ? "active" : ""}
+                            >Promoções</a>
                         </li>
                     </HeaderMenu>
                 </HeaderActions>
@@ -39,11 +50,12 @@ const Header = () => {
 
 const HeaderContainer = styled.header`
     width: 100%;
-    background-color: #bd0000;
+    background-color: #6B0504;
     padding: 16px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 3px solid #F4796B;
 
     & .icon{
         background-color: white;
@@ -70,6 +82,22 @@ const HeaderMenu = styled.ul`
         color: #FFFFFF;
         line-height: 40px;
         display: block;
+        position: relative;
+
+        &.active{
+            color: #F4796B;
+        }
+
+        &.active::after{
+            content: "";
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background-color: #F4796B;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
     }
 `;
 
